@@ -32,7 +32,7 @@ public class InfoNodeService {
     private InfoNodeRepository infoNodeRepository;
 
     public List<InfoNode> getAllInfoNodes() {
-        return this.infoNodeRepository.findAll();
+        return this.infoNodeRepository.findAllNodesOrdered();
     }
 
     public List<InfoNode> getParentInfoNodes() {

@@ -41,6 +41,18 @@ public class InfoUnitController {
         return this.infoUnitService.getAllInfoUnits();
     }
 
+    @RequestMapping(path = "/bynode/{id}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<InfoUnit> getInfoUnitByNode(@PathVariable("id") Long nodeId) {
+        return this.infoUnitService.getInfoUnitsByNode(nodeId);
+    }
+
+    @RequestMapping(path = "/bynodetitle", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<InfoUnit> getInfoUnitByNodeTitle(@RequestBody String nodeTitle) {
+        return this.infoUnitService.getInfoUnitsByNodeTitle(nodeTitle);
+    }
+
     @RequestMapping(path = "/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public InfoUnit getInfoUnitById(@PathVariable("id") Long id) {
