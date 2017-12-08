@@ -34,6 +34,10 @@ import java.util.List;
  */
 @Entity()
 @Table(name = "INFO_UNIT")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
 public class InfoUnit extends AbstractEntity implements Serializable {
 
     @Id
