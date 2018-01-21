@@ -14,10 +14,13 @@ package com.jskno.persistence.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jskno.persistence.entity.base.AbstractEntity;
+import com.jskno.persistence.utils.ParentNodeSerializer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,14 +55,15 @@ public class InfoNode extends AbstractEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "PARENT_NODE_ID")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//    @JsonIdentityReference(alwaysAsId = true)
+    @JsonSerialize(using = ParentNodeSerializer.class)
     private InfoNode parentNode;
 
     @OneToMany(mappedBy = "parentNode")
     private List<InfoNode> childrenNodes;
 
-    @OneToMany(mappedBy = "infoNode")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "infoNode")
     private List<InfoUnit> infoUnits;
 
     public Long getId() {
