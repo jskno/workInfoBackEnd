@@ -12,6 +12,7 @@
 package com.jskno.persistence.entity.listener;
 
 import com.jskno.persistence.entity.base.AbstractEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.PrePersist;
@@ -25,6 +26,8 @@ public class EntityListener {
 
     @PrePersist
     public void onCreate(final AbstractEntity entity) {
+        //final String currentUser = SecurityContextHolder.getContext().getAuthentication().
+    //                                      getName();
         final String currentUser = "SYSTEM";
         final Date currentDate = new Date();
         entity.setCreatedByUser(currentUser);
