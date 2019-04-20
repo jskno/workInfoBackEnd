@@ -35,7 +35,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenProvider jwtTokenProvider;
 
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -48,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             authToken = authToken.substring(7);
         }
 
-        String username = jwtTokenUtil.getUsernameFromToken(authToken);
+        String username = jwtTokenProvider.getUsernameFromToken(authToken);
 
         logger.info("Checking authentication for user " + username);
 
@@ -56,11 +56,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             // It is not compelling necessary to load the use details from the database. You could also store the information
             // in the token and read it from it. It's up to you ;)
-            UserDetails userDetails = jwtTokenUtil.getUserDetailsFromToken(authToken);
+            UserDetails userDetails = jwtTokenProvider.getUserDetailsFromToken(authToken);
 
             // For simple validation it is completely sufficient to just check the token integrity. You don't have to call
             // the database compellingly. Again it's up to you ;)
-            if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+            if (jwtTokenProvider.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 logger.info("Authenticated user " + username + ", setting security context");

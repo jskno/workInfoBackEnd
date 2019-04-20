@@ -63,11 +63,12 @@ public class InfoUnitService {
     }
 
     public InfoUnit getInfoUnitById(Long id) {
-        return this.infoUnitRepository.findOne(id);
+        return this.infoUnitRepository.getOne(id);
     }
 
     public void deleteInfoUnitById(Long id) {
-        this.infoUnitRepository.delete(id);
+        InfoUnit infoUnit = this.getInfoUnitById(id);
+        this.infoUnitRepository.delete(infoUnit);
     }
 
     public InfoUnit saveInfoUnit(InfoUnit infoUnit) {

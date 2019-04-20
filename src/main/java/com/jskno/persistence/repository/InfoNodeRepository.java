@@ -32,4 +32,6 @@ public interface InfoNodeRepository extends JpaRepository<InfoNode, Long> {
     @Query("SELECT d FROM InfoNode d WHERE d.title = :nodeTitle")
     InfoNode findInfoNodeByTitle(@Param("nodeTitle") String nodeTitle);
 
+    InfoNode getById(Long id);
+
 }

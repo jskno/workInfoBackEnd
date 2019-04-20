@@ -1,4 +1,7 @@
 CREATE DATABASE  IF NOT EXISTS `workinfo`;
+CREATE USER 'workinfouser'@'localhost' IDENTIFIED BY 'workinfouser';
+GRANT ALL PRIVILEGES ON workinfo.* TO 'workinfouser'@'localhost' WITH GRANT OPTION;
+ALTER USER 'workinfouser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'workinfouser';
 USE `workinfo`;
 
 --

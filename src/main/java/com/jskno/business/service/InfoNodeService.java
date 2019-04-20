@@ -40,11 +40,12 @@ public class InfoNodeService {
     }
 
     public InfoNode getInfoNodeById(Long id) {
-        return this.infoNodeRepository.findOne(id);
+        return this.infoNodeRepository.getById(id);
     }
 
     public void delteInfoNodeById(Long id) {
-        this.infoNodeRepository.delete(id);
+        InfoNode infoNode = this.getInfoNodeById(id);
+        this.infoNodeRepository.delete(infoNode);
     }
 
     public InfoNode saveInfoNode(InfoNode infoNode) {
